@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EASTTIERS — Minecraft Rankings</title>
+<style>
+:root{--bg:#090b10;--panel:#11151e;--line:#252c3a;--muted:#8d97aa;--text:#f4f6fb;--accent:#e23b4b;--accent2:#ff6a55}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#3b1520 0,transparent 48%),var(--bg);color:var(--text);font:15px Inter,system-ui,Segoe UI,sans-serif}
+header{height:76px;border-bottom:1px solid #ffffff12;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,70px);background:#090b10cc;position:sticky;top:0;backdrop-filter:blur(12px);z-index:2}
+.brand{font-weight:950;letter-spacing:2px;font-size:22px}.brand span{color:var(--accent)}nav{display:flex;gap:22px}nav a{color:#aeb6c5;text-decoration:none;font-weight:650}nav a:hover{color:white}
+.wrap{max-width:1120px;margin:auto;padding:52px 20px}.hero{text-align:center;padding:42px 0 36px}.eyebrow{color:#ff6875;font-size:12px;font-weight:900;letter-spacing:3px}.hero h1{font-size:clamp(42px,8vw,78px);letter-spacing:-3px;margin:12px 0;background:linear-gradient(100deg,#fff,#ff9b9f 65%,#e23b4b);color:transparent;background-clip:text}.hero p{color:var(--muted);margin:0 auto 25px;max-width:560px;line-height:1.7}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.stat{background:#141923;border:1px solid var(--line);border-radius:12px;padding:12px 20px;min-width:125px}.stat b{display:block;font-size:23px}.stat small{color:var(--muted)}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:26px 0 18px}.section-head h2{margin:0;font-size:23px}.search{background:var(--panel);border:1px solid var(--line);color:white;border-radius:10px;padding:12px 14px;min-width:220px;outline:none}.search:focus{border-color:var(--accent)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tab{border:1px solid var(--line);background:var(--panel);color:#b9c0cf;padding:10px 14px;border-radius:9px;cursor:pointer;font-weight:750}.tab.active,.tab:hover{background:#401821;border-color:#9b2d3b;color:white}
+.tablebox{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0f121a}table{width:100%;border-collapse:collapse}th{text-align:left;background:#151a25;color:#909bad;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;padding:15px 18px}td{padding:16px 18px;border-top:1px solid #ffffff0c}tbody tr:hover{background:#ffffff06}.rank{font-weight:900;color:#aeb6c5}.player{display:flex;align-items:center;gap:11px;font-weight:800}.avatar{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#45202a,#242a3a);display:grid;place-items:center;font-weight:900;color:#ffadb4}.tier{display:inline-block;padding:5px 9px;border-radius:6px;font-size:11px;font-weight:950;background:#39242a;color:#ff8792;border:1px solid #65303a}.points{font-weight:850}.empty{text-align:center;color:var(--muted);padding:30px}
+footer{border-top:1px solid var(--line);color:#778195;text-align:center;padding:28px 15px;font-size:13px}.admin{margin-top:34px;background:#10141d;border:1px solid var(--line);padding:18px;border-radius:14px}.admin summary{cursor:pointer;font-weight:800}.form{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.form input,.form select{background:#090c12;color:white;border:1px solid var(--line);border-radius:8px;padding:11px;flex:1;min-width:120px}.btn{background:var(--accent);color:white;border:0;border-radius:8px;padding:11px 16px;font-weight:850;cursor:pointer}.hint{color:var(--muted);font-size:12px;line-height:1.6;margin-top:10px}
+@media(max-width:620px){nav{gap:12px;font-size:13px}.brand{font-size:18px}.wrap{padding:28px 12px}.hero h1{letter-spacing:-1.5px}th,td{padding:12px 9px}.hide-mobile{display:none}.search{width:100%}}
+</style>
+</head>
+<body>
+<header><div class="brand">EAST<span>TIERS</span></div><nav><a href="#rankings">Rankings</a><a href="#about">About</a></nav></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">MINECRAFT COMPETITIVE RANKINGS</div><h1>EASTTIERS</h1><p>The competitive player ranking hub. Browse tiers, compare points, and find the top players in every gamemode.</p>
+<div class="stats"><div class="stat"><b id="playerCount">6</b><small>PLAYERS</small></div><div class="stat"><b id="modeCount">6</b><small>MODES</small></div><div class="stat"><b id="topScore">1200</b><small>TOP POINTS</small></div></div></section>
+<section id="rankings"><div class="section-head"><h2>Player Rankings</h2><input class="search" id="search" placeholder="Search player..." aria-label="Search player"></div><div class="tabs" id="tabs"></div>
+<div class="tablebox"><table><thead><tr><th>#</th><th>Player</th><th>Tier</th><th>Points</th><th class="hide-mobile">Region</th></tr></thead><tbody id="rows"></tbody></table></div>
+</section>
+<section id="about" class="admin"><h3>About EASTTIERS</h3><p style="color:var(--muted);line-height:1.7;margin-bottom:0">A community ranking page for Minecraft PvP. The sample entries are placeholders—replace them with your real players and results.</p></section>
+<details class="admin"><summary>Admin tools — add a player</summary><form class="form" id="addForm"><input id="pname" placeholder="Minecraft username" required maxlength="16"><select id="pmode"><option>Sword</option><option>Axe</option><option>Mace</option><option>Spear</option><option>Crystal</option><option>UHC</option></select><select id="ptier"><option>HT1</option><option>LT1</option><option>HT2</option><option>LT2</option><option>HT3</option><option>LT3</option><option>HT4</option><option>LT4</option><option>HT5</option><option>LT5</option></select><input id="ppoints" type="number" min="0" max="99999" placeholder="Points" required><input id="pregion" placeholder="Region (e.g. EU)"><button class="btn">Add player</button></form><p class="hint">Demo admin tools: changes are saved in this browser only (local storage). For a public site where everyone sees updates, connect a database and secure admin login before launch.</p></details>
+</main><footer>© 2026 EASTTIERS · Unofficial Minecraft community project</footer>
+<script>
+const modes=["All","Sword","Axe","Mace","Spear","Crystal","UHC"];
+let players=[
+{name:"RedVex",mode:"Sword",tier:"HT1",points:1200,region:"EU"},
+{name:"Noxium",mode:"Axe",tier:"LT1",points:1080,region:"EU"},
+{name:"VoidX",mode:"Mace",tier:"HT2",points:960,region:"NA"},
+{name:"Kairo",mode:"Crystal",tier:"LT2",points:870,region:"AS"},
+{name:"Frosty",mode:"Spear",tier:"HT2",points:820,region:"EU"},
+{name:"Zenith",mode:"UHC",tier:"LT3",points:710,region:"AS"}
+];
+try{const saved=localStorage.getItem("easttiers_players");if(saved)players=JSON.parse(saved)}catch(e){}
+let current="All";
+const tabs=document.getElementById("tabs");
+modes.forEach(m=>{const b=document.createElement("button");b.className="tab"+(m===current?" active":"");b.textContent=m;b.onclick=()=>{current=m;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.textContent===m));render()};tabs.appendChild(b)});
+function render(){const q=document.getElementById("search").value.toLowerCase();const filtered=players.filter(p=>(current==="All"||p.mode===current)&&p.name.toLowerCase().includes(q)).sort((a,b)=>b.points-a.points);document.getElementById("rows").innerHTML=filtered.length?filtered.map((p,i)=>`<tr><td class="rank">${i+1}</td><td><div class="player"><div class="avatar">${esc(p.name.slice(0,1).toUpperCase())}</div>${esc(p.name)}</div></td><td><span class="tier">${esc(p.tier)}</span></td><td class="points">${Number(p.points).toLocaleString()}</td><td class="hide-mobile">${esc(p.region||"—")}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">No players found.</td></tr>';document.getElementById("playerCount").textContent=players.length;document.getElementById("modeCount").textContent=new Set(players.map(p=>p.mode)).size;document.getElementById("topScore").textContent=players.length?Math.max(...players.map(p=>Number(p.points))).toLocaleString():"0"}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("addForm").addEventListener("submit",e=>{e.preventDefault();players.push({name:document.getElementById("pname").value.trim(),mode:document.getElementById("pmode").value,tier:document.getElementById("ptier").value,points:Number(document.getElementById("ppoints").value),region:document.getElementById("pregion").value.trim()});try{localStorage.setItem("easttiers_players",JSON.stringify(players))}catch(e){}e.target.reset();render()});render();
+</script></body></html>
